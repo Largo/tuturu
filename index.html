@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="react-with-addons-0.12.2.js"></script>
-  <script src="JSXTransformer-0.13.1.js"></script>
-  <script src="keymaster.js"></script>
+  <script src="js/react.min-0.13.1.js"></script>
+  <script src="js/keymaster.js"></script> 
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Melonpan Soundboard</title>
+  <title>Tuturu~</title>
   <style>
   html, body {
     margin: 0;
@@ -22,12 +21,14 @@
   }
 
   .soundboard {
-    margin: 0 20px;
+    margin: 0 auto;
     background-color: #fff;
     background-color: rgba(255,255,255,0.6);
     padding: 10px 20px; 
     text-align: center;
     overflow: auto;
+    width: 500px;
+    max-width: 100%;
   }
 
   .soundbutton {
@@ -44,203 +45,41 @@
       padding: 0;
     }
 
-     .soundbutton {
-    margin: 0 5px;
+    .soundbutton {
+      margin: 0 5px;
     }
-  } 
+  }
+
+  @media screen and (max-width: 500px) {
+    .github {
+      display: none;
+    }
+  }
   </style>
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-</head>
-<body><!--
- --><div id="container">
-  </div>
- <script type="text/jsx">
-var images = [
-  {image: 'poi.jpg'},
-  {image: 'tales.jpg'},
-  {image: 'kadse.jpg'},
-];
-
-var styles = {
-  container: {
-    fontSize: '47px',
-    minHeight: '100vh',
-    backgroundImage: '',
-    backgroundSize: 'cover'
-  },
-  preloader: { // http://www.thecssninja.com/css/even-better-image-preloading-with-css2
-    display: 'none',
-    content: '',
-  }
-};
-
-var Button = React.createClass({
-  addKey: function(hotkey) {
-    self = this;
-    var filename = this.props.filename;
-    key(hotkey, function(event, handler){ 
-          self.play(filename);
-      });
-  },
-  componentDidMount: function(){
-    if(typeof this.props.hotkey !== "undefined") {
-        this.addKey(this.props.hotkey);
-    }
-  },
-  play: function(filename) {
-    var audio = new Audio(filename);
-    audio.play();
-  },
-  render: function() {
-    return (
-      <button id={ this.props.id } className="btn btn-success soundbutton" onClick={this.play.bind(this, this.props.filename)}>{ this.props.title }</button>
-    );
-  }
-
-});
-
-
-var Slideshow = React.createClass({
-  componentDidMount: function() {
-    styles.container.backgroundImage = 'url(' + images[0].image + ')';
-    this.setState({styles: styles});
-    this.timer = setInterval(this.tick, this.props.secondsUntilNextSlide * 1000); // 1000ms = 1s
-    // caching?
-
-    for (var i=0; i < images.length; i++) {
-      styles.preloader.content += 'url(' + images[i].image + ') ';
-    }
-    
-    this.setState({styles: styles});
-  },
-  getInitialState: function() {
-    return {
-      index: 0,
-      styles: styles
-    };
-  },
-  getDefaultProps: function() {
-    return {
-      secondsUntilNextSlide : 4
-    };
-  },
-  tick: function() {
-     if(this.state.index+1 < images.length) {
-       this.setState({index: this.state.index + 1});
-     } else {
-       this.setState({index: 0});
-     }
-
-      styles.container.backgroundImage = 'url(' + images[this.state.index].image + ')';
-      this.setState({styles: styles});      
-  },
-
-
-  render: function() {
-    return (
-      <div id="supersized" className="slideshow" style={this.state.styles.container}>
-       <div className="soundboard">
-         <h1>Melonpan Soundboard</h1>
-
-          <Button hotkey="." title="Ahoi!" filename="ahoiWaldbubenMoedchen.mp3" />
-          <Button hotkey="m" title="Mai body ish rady" filename="maIbodyIshRady.mp3" />
-
-          <Button hotkey="a" title="Liebe Kinder" filename="liebekinder.mp3" />
-          <Button hotkey="t" title="Timotei" filename="timotei.mp3" />
-
-          <Button hotkey="1" title="Aber es ist egal" filename="egal.mp3" />
-          <Button hotkey="2"title="Auf Wiedertschüss!" filename="wiedertschuess.mp3" />
-          <Button hotkey="3" title="Ein wunderbarer Tag" filename="einwunderbarertag.mp3" />
-
-          <Button hotkey="4" title="Timotei Bukkake" filename="timoteibukkake.mp3" />
-          <Button hotkey="5" title="Geschleckt" filename="geschleckt.mp3" />
-          <Button hotkey="6" title="Liebe Kartoffel" filename="liebekartoffel.mp3" />
-          <Button hotkey="7" title="Oder was auch immer" filename="oderwasauchimmer.mp3" />
-
-          <Button hotkey="8" title="Oh mein Gott" filename="oh.mp3" />
-
-          <Button hotkey="9" title="Nicht Zuhause nachmachen!" filename="nichtZuhauseNachmachen.mp3" />
-
-
-
-
-          <Button hotkey="b" title="Grossen Benis" filename="grossenbenis.mp3" />
-          <Button hotkey="f" title="Fangen wir mal an" filename="dannFangenWirMalAnLiebeKinder.mp3" />
-          <Button hotkey="c" title="Brauchen wir sonst noch was" filename="brauchenWirSonstNochWas.mp3" />
-          <Button hotkey="d" title="Das Wichtigste" filename="dasWichtigste.mp3" />
-          <Button hotkey="k" title="Film nicht immer, Kartoffel!" filename="jetztFilmNichtImmer.mp3" />
-          <Button hotkey="g" title="Das musst du rausschneiden" filename="dasMusstDuRauschneiden.mp3" />
-          <Button hotkey="o" title="OKONOMIYAKI!!!" filename="okonomiyaki.mp3" />
-          <Button hotkey="r" title="Herrn Richardo" filename="herrnRichardo.mp3" />
-          <Button hotkey="y" title="Das zeigen wir nicht auf YouTube" filename="dasZeigenWirNichtAufYouTube.mp3" />
-
-          <Button hotkey="i" title="@Yugius: das war eine schlechte Idee" filename="dasWarEineBloedeIdee.mp3" />
-
-
-          <Button hotkey="s" title="Das schneiden wir dann raus" filename="dasSchneidenWirDannRaus.mp3" />
-          
-          <Button hotkey="x" title="Tod und Verderben" filename="todUndVerderben.mp3" />
-
-          <Button hotkey="v" title="Abwaschmittel" filename="abwaschmittel.mp3" />
-
-          <Button hotkey="n" title="Nomnom" filename="nomnom.mp3" />
-
-
-          <Button hotkey="l" title="Oder was auch immer 2" filename="oderWasAuchImmer2.mp3" />
-          <Button hotkey="z" title="Nervös" filename="ichBinEinBisschenNervoes.mp3" />
-          <Button hotkey="w" title="Wunderbar, ich freue mich schon" filename="wunderbarIchFreueMichSchon.mp3" />
-          <Button hotkey="e" title="Sexy" filename="binIchSexy.mp3" />
-
-          <Button hotkey="q" title="Messer" filename="vielleichtHaetteIchLieberEinKleinesMesserVerwendenSollen.mp3" />
-          <Button hotkey="u" title="ehelichen" filename="ichMoechteDichZerGerneEhelichen.mp3" />
-          <Button hotkey="h" title="Fappierpapier" filename="fappierpapier.mp3" />
-          <Button hotkey="p" title="123!" filename="123reinInsVergnuegen.mp3" />
-          <Button hotkey="[" title="Mödchen" filename="moedchen.mp3" />
-
-          <Button hotkey="j" title="This shit again" filename="thisShitAgain.mp3" />
-
-          <br />
-          <p>
-          Hotkeys are enabled :D <br />
-          Press 8 8 8 8
-          <br />
-          <a href="https://www.youtube.com/user/Nervli" target="_blank">Meidocafe Channel</a>
-          </p>
-
-          <p className="credits">
-          <a href="https://twitter.com/intent/tweet?button_hashtag=melonpanXYZ" className="twitter-hashtag-button" data-size="large" data-url="https://melonpan.xyz">Tweet #melonpanXYZ</a>
-            <br />
-           <a href="https://www.youtube.com/channel/UCnNAj7O2pARPGC7M0-zybAQ" target="_blank">Meidocafe Channel</a>
-          <br />
-          <small>Credits: Melonpan and Friends. Hashtag: <a href="https://twitter.com/search?f=realtime&q=%23melonpanXYZ&src=typd" target="_blank">#melonpanXYZ</a> <br />
-          </small>
-          Programming by @Largo <br />
-          <a href="https://twitter.com/largo" className="twitter-follow-button" data-show-count="false">Follow @largo</a> <br />
-          <a href="https://largo.io">largo.io</a>
-          </p>
-        </div>
-        <div id="preloader" style={this.state.styles.preloader}></div>
-      </div>
-    );
-  }
-});
-
-React.render(
-  <Slideshow secondsUntilNextSlide="4" />,
-  document.getElementById('container')
-);
-</script>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<script>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-61863111-1', 'auto');
+  ga('create', 'UA-61971786-1', 'auto');
   ga('send', 'pageview');
 </script>
+</head>
+<body>
+<a class="github" href="https://github.com/largo/tuturu"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+<div id="container">
+  </div>
+  <script src="js/tuturu.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>
